@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 function Chart() {
+  const ref = useRef(null);
   const showChart = () => {
-    new window.OrgChart(document.getElementById('tree'), {
+    new window.OrgChart(ref.current, {
       nodeBinding: {
         field_0: 'name',
       },
@@ -13,10 +14,12 @@ function Chart() {
       ],
     });
   };
+
+  // コンポーネント描画時に一度だけ実行される
   useEffect(() => {
     showChart();
   }, []);
-  return <div />;
+  return <div ref={ref} />;
 }
 
 export default Chart;
